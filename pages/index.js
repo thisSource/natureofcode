@@ -95,9 +95,80 @@ function Home() {
             <a>Rotating line</a>
           </Link>
         </li>
+     
+        <li className="hover:underline">
+          <Link href="/linetoball">
+            <a>Line connected to ball</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/gravitationalattraction">
+            <a>Gravitational attraction</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/gravitationalattractionandangles">
+            <a>Gravitational attraction and angles part 1</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/gravitationalattractionandangles2">
+            <a>Gravitational attraction and angles part 2</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/polarcoordinates">
+            <a>Polar coordinates part 1</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/polarcoordinates2">
+            <a>Polar coordinates part 2</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/simpleharmonicmotion">
+            <a>Simple harmonic motion</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/simpleharmonicmotion2">
+            <a>Simple harmonic motion part 2</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/simpleharmonicmotion3">
+            <a>Simple harmonic motion part 3</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/clock">
+            <a>Clock</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/beziercurves">
+            <a>Bezier curve</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/perspective">
+            <a>Perspective part 1</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/rhodoneacurve">
+            <a>Rhodoneacurve</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/particlesystem">
+            <a>Particle system</a>
+          </Link>
+        </li>
       </ol>
     </div>
   );
 }
-
+ 
 export default Home;

@@ -7,37 +7,29 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
 });
 
 export default (props) => {
-  let rotation;
-  let speed;
-  let r, g, b;
-
+  let r = 200;
+  let sides;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
-    p5.background(150, 150, 150);
-
-    rotation = 0;
-    speed = 0.01;
-    r = 255;
-    g = 0;
-    b = 0;
   };
 
   const draw = (p5) => {
-    rotation += speed;
+    p5.background(0);
+    p5.stroke(255);
+    p5.strokeWeight(4);
+    p5.noFill();
+    p5.translate(p5.width / 2, p5.height / 2);
 
-    if (rotation > p5.TAU) {
-      rotation = 0;
-      r = p5.random(100, 255);
-      g = p5.random(100, 255);
-      b = p5.random(100, 255);
+    sides = p5.map(p5.mouseX, 0, p5.width, p5.PI, 0.01);
+
+    p5.beginShape();
+    for (let a = 0; a < p5.PI*2; a += sides) {
+      let x = r * p5.cos(a);
+      let y = r * p5.sin(a);
+      p5.vertex(x, y);
     }
-    console.log(rotation);
-    p5.translate(p5.windowWidth / 2, p5.windowHeight / 2);
-    p5.rotate(rotation);
-    p5.strokeWeight(1);
-    p5.stroke(b, g, r);
-    p5.fill(r, g, b);
-    p5.rect(0, 0, 3, 350);
+
+    p5.endShape(p5.CLOSE);
   };
 
   // Will only render on client-side

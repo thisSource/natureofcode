@@ -7,25 +7,23 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
 });
 
 export default (props) => {
-  let house;
-  let angle = 0
-
+  let v;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
-    house = new House(p5,0,0,400,400)
   };
 
   const draw = (p5) => {
     p5.background(150, 150, 150);
-    p5.translate(0,p5.height)
-    angle = -p5.PI/2
-    p5.text(angle,400,-100)
-    p5.rotate(angle)
+p5.strokeWeight(20)
+p5.noFill()
+    // p5.point(300,300)
+    // p5.point(p5.mouseX,p5.mouseY)
+    // p5.point(800,300)
+    // p5.point(1000,600)
 
-
-    house.show(p5)
-
-  
+    p5.strokeWeight(4)
+    p5.bezier(0,300,p5.mouseX, p5.mouseY, 400, 400, p5.width,300)
+    console.log(p5.PI)
   };
 
   // Will only render on client-side
@@ -34,21 +32,4 @@ export default (props) => {
       <Sketch setup={setup} draw={draw} />;
     </div>
   );
-
-
 };
-
-class House{
-  constructor(p5, xStart, yStart, xEnd, yEnd){
-  this.xStart = xStart
-  this.yStart = yStart
-  this.xEnd = xEnd
-  this.yEnd = yEnd
-
-  } 
-
-  show(p5){
-    p5.rect(this.xStart, this.yStart,this.yEnd,this.xEnd)
-  }
-
-}

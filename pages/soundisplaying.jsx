@@ -20,7 +20,7 @@ let numberOfBalls = 2
 export default (props) => {
   
   const preload = (p5) => {
-    p5.soundFormats("wav", "ogg");
+    p5.soundFormats("wav", "ogg", "mp3");
     mySound = p5.loadSound("audio/drum.ogg");
   };
 
