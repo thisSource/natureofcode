@@ -166,6 +166,16 @@ function Home() {
             <a>Particle system</a>
           </Link>
         </li>
+        <li className="hover:underline">
+          <Link href="/underwater">
+            <a>Under water</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/lsystem">
+            <a>L-system</a>
+          </Link>
+        </li>
       </ol>
     </div>
   );
