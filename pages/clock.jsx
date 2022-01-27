@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Clock = props => {
   let hr;
   let mn;
   let sc;
@@ -71,3 +71,5 @@ export default (props) => {
     p5.pop();
   }
 };
+
+export default Clock;

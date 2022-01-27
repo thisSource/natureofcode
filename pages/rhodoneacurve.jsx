@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Rhodoneacurve = props => {
   let nume = 0;
   let dem = 4;
 
@@ -56,3 +56,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Rhodoneacurve;

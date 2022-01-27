@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Polarcoordinates2 = props => {
   let r = 200;
   let sides;
   const setup = (p5, canvasParentRef) => {
@@ -39,3 +39,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Polarcoordinates2;

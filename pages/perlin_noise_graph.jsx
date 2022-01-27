@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const PerlinNoiseGraph = props => {
   let start = 0;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
@@ -36,3 +36,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default PerlinNoiseGraph;

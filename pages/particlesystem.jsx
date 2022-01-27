@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Particlesystem = props => {
   let particle = [];
   let gravity;
   const setup = (p5, canvasParentRef) => {
@@ -43,6 +43,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Particlesystem;
 
 class Particle {
   constructor(p5, xPos, yPos, r) {

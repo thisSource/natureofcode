@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Beziercurves = props => {
   let v;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
@@ -33,3 +33,5 @@ p5.noFill()
     </div>
   );
 };
+
+export default Beziercurves;

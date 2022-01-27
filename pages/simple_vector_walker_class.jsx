@@ -8,7 +8,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
 
 let walker;
 
-export default (props) => {
+const SimpleVectorWalkerClass = props => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
     p5.background(150, 150, 150);
@@ -27,6 +27,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default SimpleVectorWalkerClass;
 
 class Walker {
   constructor(x, y, p5) {

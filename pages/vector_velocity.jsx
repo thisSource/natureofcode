@@ -8,7 +8,8 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
 
 let vel;
 let obj = [];
-export default (props) => {
+
+const VectorVelocity = props => {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
     for (let i = 0; i < 100; i++) {
@@ -34,6 +35,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default VectorVelocity;
 
 class Obj {
   constructor(x, y, p5) {

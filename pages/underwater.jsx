@@ -25,11 +25,11 @@ let setRatio;
 
 let yOff = 0;
 
-export default (props) => {
-  const preload = (p5) => {
-    p5.soundFormats("mp3", "ogg", "wav");
-    mySound = p5.loadSound("");
-  };
+const Underwater = props => {
+  // const preload = (p5) => {
+  //   p5.soundFormats("mp3", "ogg", "wav");
+  //   mySound = p5.loadSound("");
+  // };
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
@@ -69,6 +69,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Underwater;
 
 function shell(p5) {
   p5.push();

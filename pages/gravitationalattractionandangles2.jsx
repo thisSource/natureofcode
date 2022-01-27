@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Gravitationalattractionandangles2 = props => {
   let movers = [];
   let attractor;
   const setup = (p5, canvasParentRef) => {
@@ -39,6 +39,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Gravitationalattractionandangles2;
 
 class Attractor {
   constructor(p5, x, y, m) {

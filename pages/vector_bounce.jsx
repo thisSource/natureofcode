@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const VectorBounce = props => {
   let ball1;
   let ball2;
   const setup = (p5, canvasParentRef) => {
@@ -30,6 +30,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default VectorBounce;
 
 class Ball {
   constructor(x, y, r, p5) {

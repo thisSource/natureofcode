@@ -15,7 +15,7 @@ const Sketch = dynamic(
 
 let mySound;
 
-export default (props) => {
+const Boilerplatewithsound = props => {
 const preload = (p5)=>{
     p5.soundFormats("mp3", "ogg", "wav")
     mySound = p5.loadSound("")
@@ -36,3 +36,5 @@ const preload = (p5)=>{
     </div>
   );
 };
+
+export default Boilerplatewithsound;

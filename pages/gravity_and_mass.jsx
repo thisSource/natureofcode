@@ -16,7 +16,7 @@ const Sketch = dynamic(
 let gongA, gongB
 
 
-export default (props) => {
+const GravityAndMass = props => {
   let moverA;
   let moverB;
 
@@ -65,6 +65,9 @@ export default (props) => {
     </div>
   );
 };
+
+
+export default GravityAndMass;
 
 class Mover {
   constructor(x, y, m, c, p5) {

@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Simpletransform = props => {
   let v;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
@@ -39,3 +39,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Simpletransform;

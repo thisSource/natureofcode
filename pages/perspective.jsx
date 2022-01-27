@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Perspective = props => {
   let pos;
   let len;
   let a,b
@@ -46,3 +46,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Perspective;

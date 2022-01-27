@@ -7,7 +7,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Linetoball = props => {
   let ball, gravity;
 
   const setup = (p5, canvasParentRef) => {
@@ -34,6 +34,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Linetoball;
 
 class Ball{
   constructor(p5, x, y, radius){

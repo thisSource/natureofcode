@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Simpleharmonicmotion2 = props => {
   let angle = 0;
   let angleV = 0.1;
   const setup = (p5, canvasParentRef) => {
@@ -32,3 +32,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Simpleharmonicmotion2;

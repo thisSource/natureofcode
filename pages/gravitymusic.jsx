@@ -14,7 +14,7 @@ const Sketch = dynamic(
 
 let gongB, reverb, delay, amp, vol, strokeSize;
 
-export default (props) => {
+const Gravitymusic = props => {
   let moverA;
   let moverB;
 
@@ -65,6 +65,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Gravitymusic;
 
 class Mover {
   constructor(x, y, m, p5) {

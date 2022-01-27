@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Rotatingline = props => {
   let rotation;
   let speed;
   let r, g, b;
@@ -47,3 +47,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Rotatingline;

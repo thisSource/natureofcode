@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const LineArt = props => {
   let line = [];
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
@@ -30,6 +30,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default LineArt;
 
 class Line {
   constructor(x1, y1, x2, y2, p5) {

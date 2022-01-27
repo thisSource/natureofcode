@@ -17,7 +17,7 @@ let mySound;
 let ball = []
 let numberOfBalls = 2
 
-export default (props) => {
+const Soundisplaying = props => {
   
   const preload = (p5) => {
     p5.soundFormats("wav", "ogg", "mp3");
@@ -49,6 +49,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default Soundisplaying;
 
 class Ball {
     constructor(p5, x, y) {

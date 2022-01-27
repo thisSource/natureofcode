@@ -15,7 +15,7 @@ const Sketch = dynamic(
 
 let mySound, reverb;
 
-export default (props) => {
+const Soundonclick = props => {
   const preload = (p5) => {
     p5.soundFormats("mp3", "ogg", "wav");
     mySound = p5.loadSound("audio/VeloStack.mp3");
@@ -51,3 +51,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Soundonclick;

@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const PixelLoop = props => {
   let population = 100000;
   let pos;
   const setup = (p5, canvasParentRef) => {
@@ -32,3 +32,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default PixelLoop;

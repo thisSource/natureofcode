@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const RandomwalkerPerlinNoise = props => {
   let xOff = 0;
   let yOff = 1;
 
@@ -35,3 +35,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default RandomwalkerPerlinNoise;

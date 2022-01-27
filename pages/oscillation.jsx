@@ -15,7 +15,7 @@ const Sketch = dynamic(
 
 let mySound, wave;
 
-export default (props) => {
+const Oscillation = props => {
   let playing = false;
 
   const preload = (p5) => {
@@ -60,3 +60,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Oscillation;

@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Lsystem = props => {
   let angleSpeed;
 
   var angle;
@@ -109,3 +109,5 @@ export default (props) => {
     </div>
   );
 };
+
+export default Lsystem;

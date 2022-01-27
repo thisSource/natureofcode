@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const Playzone = props => {
   let house;
   let angle = 0
 
@@ -37,6 +37,8 @@ export default (props) => {
 
 
 };
+
+export default Playzone;
 
 class House{
   constructor(p5, xStart, yStart, xEnd, yEnd){

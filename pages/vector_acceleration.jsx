@@ -6,7 +6,7 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-export default (props) => {
+const VectorAcceleration = props => {
   let obj;
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(400, 400).parent(canvasParentRef);
@@ -26,6 +26,8 @@ export default (props) => {
     </div>
   );
 };
+
+export default VectorAcceleration;
 
 class Mover {
   constructor(x, y, p5) {
