@@ -25,16 +25,21 @@ let setRatio;
 
 let yOff = 0;
 
-const Underwater = props => {
-  // const preload = (p5) => {
-  //   p5.soundFormats("mp3", "ogg", "wav");
-  //   mySound = p5.loadSound("");
-  // };
+let particle = [];
+let gravity;
+let amplitude;
+
+const Underwater = (props) => {
+  const preload = (p5) => {
+    p5.soundFormats("mp3", "ogg", "wav");
+    mySound = p5.loadSound("audio/plx.wav");
+  };
 
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
     background = new Background(p5);
-    // surface = new Surface(0,yOff)
+    amplitude = new window.p5.Amplitude();
+    gravity = p5.createVector(0.03, 0.05);
 
     windowOriginSize = p5.createVector(1500, 800);
     windowSize = p5.createVector(p5.width, p5.height);
@@ -47,15 +52,48 @@ const Underwater = props => {
           p5,
           p5.random(0, p5.width),
           p5.random(p5.height, p5.height + 1200),
-          p5.random(i, 30) * setRatio
+          p5.random(5) * setRatio
         )
       );
     }
   };
 
+  const mouseClicked = (p5) => {
+    if (mySound.isPlaying()) {
+      mySound.pause();
+    } else {
+      mySound.play();
+    }
+  };
+
+  const mouseMoved = (p5) => {
+    for (let i = 0; i < 1; i++) {
+      particle.push(new Particle(p5, p5.mouseX, p5.mouseY, p5.random(5)));
+    }
+  };
+
   const draw = (p5) => {
     background.show(p5);
-    showSurf(p5);
+
+    let level = amplitude.getLevel();
+
+    gravity = p5.createVector(p5.random(-0.01, 0.01), -0.01);
+
+    for (let i = 0; i < particle.length; i++) {
+      particle[i].applyForce(gravity);
+      particle[i].update();
+      // particle[i].edges(p5);
+      particle[i].show(p5);
+    }
+
+    for (let i = particle.length - 1; i >= 0; i--) {
+      if (particle[i].finished()) {
+        particle.splice(i, 1);
+      }
+    }
+
+    showSurf(p5, level / 2);
+
     for (let i = 0; i < 29; i++) {
       bubbels[i].update(p5, p5.random(-0.1, 0.1), -0.01);
       bubbels[i].edge(p5);
@@ -65,12 +103,60 @@ const Underwater = props => {
 
   return (
     <div className="">
-      <Sketch setup={setup} draw={draw} />
+      <Sketch
+        preload={preload}
+        mouseMoved={mouseMoved}
+        mouseClicked={mouseClicked}
+        setup={setup}
+        draw={draw}
+      />
     </div>
   );
 };
 
 export default Underwater;
+
+class Particle {
+  constructor(p5, xPos, yPos, r) {
+    this.pos = p5.createVector(xPos, yPos);
+    this.vel = window.p5.Vector.random2D();
+    this.vel.mult(1);
+    this.acc = p5.createVector(0, 0);
+    this.r = r;
+    this.lifetime = 355;
+  }
+
+  applyForce(force) {
+    this.acc.add(force);
+  }
+
+  finished() {
+    return this.lifetime < 0;
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.pos.add(this.vel);
+    this.acc.set(0, 0);
+
+    this.lifetime -= 1;
+  }
+
+  edges(p5) {
+    if (this.pos.x > p5.width - this.r || this.pos.x < 0 + this.r) {
+      this.vel.x *= -1;
+    }
+    if (this.pos.y > p5.height - this.r || this.pos.y + this.r < 0) {
+      this.vel.y *= -1;
+    }
+  }
+
+  show(p5) {
+    p5.noStroke();
+    p5.fill(255, 50);
+    p5.ellipse(this.pos.x, this.pos.y, this.r * 2);
+  }
+}
 
 function shell(p5) {
   p5.push();
@@ -86,15 +172,17 @@ function shell(p5) {
   }
 }
 
-function showSurf(p5) {
-  p5.fill(255, 0, 0, 10);
+function showSurf(p5, level) {
+  p5.fill(0, 0, 255, 20);
+  p5.stroke(30, 100, 255);
+
   p5.beginShape();
   let xOff = 0;
-  for (let x = 0; x <= p5.width + 10; x += 10) {
-    let y = p5.map(p5.noise(xOff, yOff), 0, 1, 50, 100);
+  for (let x = 0; x <= p5.width + 10; x += 5) {
+    let y = p5.map(p5.noise(xOff, yOff), 0, 1, 70, 150);
     p5.vertex(x, y);
     // Increment x dimension for noise
-    xOff += 0.03;
+    xOff += 0.01 + level;
   }
   // increment y dimension for noise
   yOff += 0.01;
@@ -147,7 +235,7 @@ class Bubble {
     // p5.strokeWeight(4)
     // p5.stroke(0,100)
     p5.noStroke();
-    p5.fill(255, 40);
+    p5.fill(255, 20);
     p5.ellipse(this.pos.x, this.pos.y, this.radius);
   }
 }
