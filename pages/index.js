@@ -176,6 +176,11 @@ function Home() {
             <a>L-system</a>
           </Link>
         </li>
+        <li className="hover:underline">
+          <Link href="/underwatermobil">
+            <a>Underwater mobil</a>
+          </Link>
+        </li>
       </ol>
     </div>
   );
