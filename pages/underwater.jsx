@@ -16,7 +16,6 @@ const Sketch = dynamic(
 let mySound;
 let bubbels = [];
 let background;
-let surface;
 
 let windowSize;
 let windowOriginSize;
@@ -30,9 +29,11 @@ let gravity;
 let amplitude;
 
 const Underwater = (props) => {
+
+  
   const preload = (p5) => {
     p5.soundFormats("mp3", "ogg", "wav");
-    mySound = p5.loadSound("audio/plx.wav");
+    mySound = p5.loadSound("audio/sun.mp3");
   };
 
   const setup = (p5, canvasParentRef) => {
