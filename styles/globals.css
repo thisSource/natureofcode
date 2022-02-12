@@ -1,3 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base{
+    @font-face {
+        font-family: "Rope";
+        src: url("/fonts/rope.ttf") format("ttf");
+    }
+}
+
 html,
 body {
   padding: 0;

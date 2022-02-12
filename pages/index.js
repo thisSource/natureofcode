@@ -5,12 +5,12 @@ function Home() {
   return (
     <div className="ml-10 mt-10">
       <ol>
-      <li className="hover:underline">
+        <li className="hover:underline">
           <Link href="/playzone">
             <a>Playzone</a>
           </Link>
         </li>
-      <li className="hover:underline">
+        <li className="hover:underline">
           <Link href="/perlin_noise_graph">
             <a>Perlin noise graph</a>
           </Link>
@@ -95,7 +95,7 @@ function Home() {
             <a>Rotating line</a>
           </Link>
         </li>
-     
+
         <li className="hover:underline">
           <Link href="/linetoball">
             <a>Line connected to ball</a>
@@ -177,13 +177,33 @@ function Home() {
           </Link>
         </li>
         <li className="hover:underline">
-          <Link href="/underwatermobil">
-            <a>Underwater mobil</a>
+          <Link href="/lsystem2">
+            <a>L-system part II</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/letters">
+            <a>Letters</a>
+          </Link> 
+        </li>
+        <li className="hover:underline">
+          <Link href="/seektarget">
+            <a>Seek target</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/pursueandevade">
+            <a>Pursue and evade</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/flocking">
+            <a>Flocking</a>
           </Link>
         </li>
       </ol>
     </div>
   );
 }
- 
+
 export default Home;

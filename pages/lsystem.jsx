@@ -42,7 +42,7 @@ const Lsystem = props => {
       }
     }
     sentence = nextSentence;
-    turtle(p5);
+    // turtle(p5);
   }
 
   function turtle(p5) {

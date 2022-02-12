@@ -1,6 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
+
 // Will only import `react-p5` on client-side
 const Sketch = dynamic(
   () =>
@@ -14,6 +15,7 @@ const Sketch = dynamic(
 );
 
 let mySound;
+
 let bubbels = [];
 let background;
 
@@ -28,9 +30,12 @@ let particle = [];
 let gravity;
 let amplitude;
 
-const Underwater = (props) => {
 
-  
+const flock = [];
+
+let alignSlider, cohesionSlider, separationSlider;
+
+const Underwater = (props) => {
   const preload = (p5) => {
     p5.soundFormats("mp3", "ogg", "wav");
     mySound = p5.loadSound("audio/sun.mp3");
@@ -47,16 +52,16 @@ const Underwater = (props) => {
     ratio = windowSize.div(windowOriginSize);
     setRatio = ratio.x / ratio.y;
 
-    for (let i = 0; i < 29; i++) {
-      bubbels.push(
-        new Bubble(
-          p5,
-          p5.random(0, p5.width),
-          p5.random(p5.height, p5.height + 1200),
-          p5.random(5) * setRatio
-        )
-      );
-    }
+    
+  alignSlider = 1;
+  cohesionSlider = 0.3;
+  separationSlider = 0.5;
+
+  for (let i = 0; i < 100; i++) {
+    flock.push(new Boid(p5));
+  }
+
+    setUpBubble(p5);
   };
 
   const mouseClicked = (p5) => {
@@ -68,37 +73,21 @@ const Underwater = (props) => {
   };
 
   const mouseMoved = (p5) => {
-    for (let i = 0; i < 1; i++) {
-      particle.push(new Particle(p5, p5.mouseX, p5.mouseY, p5.random(5)));
-    }
+    runParticle(p5);
   };
 
   const draw = (p5) => {
     background.show(p5);
-
     let level = amplitude.getLevel();
-
-    gravity = p5.createVector(p5.random(-0.01, 0.01), -0.01);
-
-    for (let i = 0; i < particle.length; i++) {
-      particle[i].applyForce(gravity);
-      particle[i].update();
-      // particle[i].edges(p5);
-      particle[i].show(p5);
-    }
-
-    for (let i = particle.length - 1; i >= 0; i--) {
-      if (particle[i].finished()) {
-        particle.splice(i, 1);
-      }
-    }
-
+    setUpParticles(p5);
     showSurf(p5, level / 2);
+    runBubble(p5);
 
-    for (let i = 0; i < 29; i++) {
-      bubbels[i].update(p5, p5.random(-0.1, 0.1), -0.01);
-      bubbels[i].edge(p5);
-      bubbels[i].show(p5);
+    for (let boid of flock) {
+      boid.edges(p5);
+      boid.flock(p5, flock);
+      boid.update(p5);
+      boid.show(p5);
     }
   };
 
@@ -117,6 +106,169 @@ const Underwater = (props) => {
 
 export default Underwater;
 
+class Boid {
+  constructor(p5) {
+    this.position = p5.createVector(
+      p5.random(p5.width / 2, p5.width),
+      p5.random(300, p5.height)
+    );
+    this.velocity = window.p5.Vector.random2D();
+    this.velocity.setMag(p5.random(2, 4));
+    this.acceleration = p5.createVector();
+    this.maxForce = 0.5;
+    this.maxSpeed = 3;
+    this.r = 5;
+  }
+
+  edges(p5) {
+    if (this.position.x > p5.width) {
+      this.position.x = 0;
+    } else if (this.position.x < 0) {
+      this.position.x = p5.width;
+    }
+    if (this.position.y > p5.height) {
+      this.velocity.mult(-1)
+    } else if (this.position.y <= 150) {
+      this.velocity.mult(-1)
+    }
+  }
+
+  align(p5, boids) {
+    let perceptionRadius = 50;
+    let steering = p5.createVector();
+    let total = 0;
+    for (let other of boids) {
+      let d = p5.dist(
+        this.position.x,
+        this.position.y,
+        other.position.x,
+        other.position.y
+      );
+      if (other != this && d < perceptionRadius) {
+        steering.add(other.velocity);
+        total++;
+      }
+    }
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+    return steering;
+  }
+
+  separation(p5, boids) {
+    let perceptionRadius = 50;
+    let steering = p5.createVector();
+    let total = 0;
+    for (let other of boids) {
+      let d = p5.dist(
+        this.position.x,
+        this.position.y,
+        other.position.x,
+        other.position.y
+      );
+      if (other != this && d < perceptionRadius) {
+        let diff = window.p5.Vector.sub(this.position, other.position);
+        diff.div(d * d);
+        steering.add(diff);
+        total++;
+      }
+    }
+    if (total > 0) {
+      steering.div(total);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+    return steering;
+  }
+
+  cohesion(p5, boids) {
+    let perceptionRadius = 100;
+    let steering = p5.createVector();
+    let total = 0;
+    for (let other of boids) {
+      let d = p5.dist(
+        this.position.x,
+        this.position.y,
+        other.position.x,
+        other.position.y
+      );
+      if (other != this && d < perceptionRadius) {
+        steering.add(other.position);
+        total++;
+      }
+    }
+    if (total > 0) {
+      steering.div(total);
+      steering.sub(this.position);
+      steering.setMag(this.maxSpeed);
+      steering.sub(this.velocity);
+      steering.limit(this.maxForce);
+    }
+    return steering;
+  }
+
+  flock(p5, boids) {
+    let alignment = this.align(p5, boids);
+    let cohesion = this.cohesion(p5, boids);
+    let separation = this.separation(p5, boids);
+
+    alignment.mult(alignSlider);
+    cohesion.mult(cohesionSlider);
+    separation.mult(separationSlider);
+
+    this.acceleration.add(alignment);
+    this.acceleration.add(cohesion);
+    this.acceleration.add(separation);
+  }
+
+  update() {
+    this.position.add(this.velocity);
+    this.velocity.add(this.acceleration);
+    this.velocity.limit(this.maxSpeed);
+    this.acceleration.mult(0);
+  }
+
+  show(p5) {
+    p5.push();
+    p5.translate(this.position.x, this.position.y);
+    p5.rotate(this.velocity.heading());
+    p5.noStroke();
+    p5.fill(255, 102, 0);
+    p5.ellipse(this.r, 0, this.r*2, this.r);
+
+    p5.triangle(-this.r, -this.r / 2, -this.r, this.r/2, this.r, 0);
+    p5.fill(0);
+    p5.ellipse(this.r*1.5,0,this.r/3);
+    p5.pop();
+  }
+}
+
+
+function setUpParticles(p5) {
+  gravity = p5.createVector(p5.random(-0.01, 0.01), -0.01);
+
+  for (let i = 0; i < particle.length; i++) {
+    particle[i].applyForce(gravity);
+    particle[i].update();
+    particle[i].show(p5);
+  }
+
+  for (let i = particle.length - 1; i >= 0; i--) {
+    if (particle[i].finished()) {
+      particle.splice(i, 1);
+    }
+  }
+}
+
+function runParticle(p5) {
+  for (let i = 0; i < 1; i++) {
+    particle.push(new Particle(p5, p5.mouseX, p5.mouseY, p5.random(5)));
+  }
+}
 class Particle {
   constructor(p5, xPos, yPos, r) {
     this.pos = p5.createVector(xPos, yPos);
@@ -140,15 +292,15 @@ class Particle {
     this.pos.add(this.vel);
     this.acc.set(0, 0);
 
-    this.lifetime -= 1;
+    this.lifetime -= 3;
   }
 
   edges(p5) {
     if (this.pos.x > p5.width - this.r || this.pos.x < 0 + this.r) {
       this.vel.x *= -1;
     }
-    if (this.pos.y > p5.height - this.r || this.pos.y + this.r < 0) {
-      this.vel.y *= -1;
+    if (this.pos.y > p5.height - this.r || this.pos.y + this.r < 100) {
+      this.pos.y = 800;
     }
   }
 
@@ -156,20 +308,6 @@ class Particle {
     p5.noStroke();
     p5.fill(255, 50);
     p5.ellipse(this.pos.x, this.pos.y, this.r * 2);
-  }
-}
-
-function shell(p5) {
-  p5.push();
-  p5.stroke(10);
-  p5.translate(p5.width / 1.75, p5.height - 40);
-  for (var i = 0; i < 200; i++) {
-    p5.push();
-    p5.rotate(i / 6);
-    p5.scale(i / 1700);
-    p5.fill(250, 200, 250);
-    p5.rect(0, 10, 80, 500);
-    p5.pop();
   }
 }
 
@@ -196,7 +334,7 @@ function showSurf(p5, level) {
 class Background {
   constructor(p5) {
     this.c1 = p5.color(250);
-    this.c2 = p5.color(63, 191, 255);
+    this.c2 = p5.color(63, 100, 255);
   }
 
   show(p5) {
@@ -208,12 +346,31 @@ class Background {
     }
   }
 }
+function setUpBubble(p5) {
+  for (let i = 0; i < 29; i++) {
+    bubbels.push(
+      new Bubble(
+        p5,
+        p5.random(0, p5.width),
+        p5.random(p5.height, p5.height + 1200),
+        p5.random(5) * setRatio
+      )
+    );
+  }
+}
+
+function runBubble(p5) {
+  for (let i = 0; i < 29; i++) {
+    bubbels[i].update(p5, p5.random(-0.1, 0.1), -0.01);
+    bubbels[i].edge(p5);
+    bubbels[i].show(p5);
+  }
+}
 
 class Bubble {
   constructor(p5, xPos, yPos, radius) {
     this.pos = p5.createVector(xPos, yPos);
     this.vel = p5.createVector(0, 0);
-    //   this.acc = p5.createVector(0,0);
     this.radius = radius;
   }
 
@@ -221,9 +378,6 @@ class Bubble {
     this.vel.add(xSpeed, ySpeed);
     this.pos.add(this.vel);
     this.vel.limit(1);
-
-    // this.acc.x = p5.random(-0.1, 0.1)
-    // this.acc.y = ySpeed
   }
 
   edge(p5) {
@@ -233,8 +387,6 @@ class Bubble {
   }
 
   show(p5) {
-    // p5.strokeWeight(4)
-    // p5.stroke(0,100)
     p5.noStroke();
     p5.fill(255, 20);
     p5.ellipse(this.pos.x, this.pos.y, this.radius);
