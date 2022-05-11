@@ -37,7 +37,7 @@ const draw = (p5) => {
 
 class ALine {
   constructor(p5, xStart) {
-    this.length = 300;
+    this.length = 150;
     this.pos = p5.createVector(xStart, p5.height / 2 - this.length / 2);
     this.boxPos = p5.createVector(p5.width / 2, p5.height / 2);
   }
@@ -52,7 +52,7 @@ class ALine {
     this.pos.x -= direction;
   }
   displayLine(p5) {
-    p5.strokeWeight(2);
+    p5.strokeWeight(1.6);
     p5.stroke(0,0,190)
     p5.line(this.pos.x, this.pos.y, this.pos.x, this.pos.y + this.length);
   }
