@@ -22,7 +22,7 @@ const preload = (p5)=>{
 }
 
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(400, 400).parent(canvasParentRef);
+    p5.createCanvas(p5.windowWidth, 400).parent(canvasParentRef);
     p5.background(150, 150, 150);
   };
 
@@ -32,7 +32,7 @@ const preload = (p5)=>{
   
   return (
     <div className="">
-      <Sketch preload={preload} setup={setup} draw={draw} />;
+      <Sketch preload={preload} setup={setup} draw={draw} />
     </div>
   );
 };

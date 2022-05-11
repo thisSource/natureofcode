@@ -6,21 +6,20 @@ const Sketch = dynamic(() => import("react-p5").then((mod) => mod.default), {
   ssr: false
 });
 
-const Boilerplate = props => {
-  let v;
-  const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(400, 400).parent(canvasParentRef);
-    p5.background(150, 150, 150);
-  };
+let v;
+const setup = (p5, canvasParentRef) => {
+  p5.createCanvas(p5.windowWidth, p5.windowHeight).parent(canvasParentRef);
+};
 
-  const draw = (p5) => {
+const draw = (p5) => {
+  p5.background(150, 150, 150);
+};
 
-  };
-
+const Boilerplate = (props) => {
   // Will only render on client-side
   return (
     <div className="">
-      <Sketch setup={setup} draw={draw} />;
+      <Sketch setup={setup} draw={draw} />
     </div>
   );
 };

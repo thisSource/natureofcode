@@ -201,6 +201,16 @@ function Home() {
             <a>Flocking</a>
           </Link>
         </li>
+        <li className="hover:underline">
+          <Link href="/particletext">
+            <a>Particle text</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/openbox">
+            <a>Openbox</a>
+          </Link>
+        </li>
       </ol>
     </div>
   );
