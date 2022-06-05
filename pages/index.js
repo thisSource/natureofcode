@@ -211,6 +211,36 @@ function Home() {
             <a>Openbox</a>
           </Link>
         </li>
+        <li className="hover:underline">
+          <Link href="/openboxvertical">
+            <a>Openbox Vertical</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/ballsandballs">
+            <a>Balls and balls</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/oceans">
+            <a>Oceans</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/textHorizontalScroll">
+            <a>Text: Horizontal scroll</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/oceansPlace">
+            <a>Ocean center point</a>
+          </Link>
+        </li>
+        <li className="hover:underline">
+          <Link href="/particletextAutotrance">
+            <a>Autotrance</a>
+          </Link>
+        </li>
       </ol>
     </div>
   );

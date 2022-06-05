@@ -15,21 +15,22 @@ const Sketch = dynamic(
 
 let mySound;
 
-const Boilerplatewithsound = props => {
-const preload = (p5)=>{
-    p5.soundFormats("mp3", "ogg", "wav")
-    mySound = p5.loadSound("")
-}
+const preload = (p5) => {
+  p5.soundFormats("mp3", "ogg", "wav");
+  mySound = p5.loadSound("");
+};
 
-  const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(p5.windowWidth, 400).parent(canvasParentRef);
-    p5.background(150, 150, 150);
-  };
+const setup = (p5, canvasParentRef) => {
+  p5.createCanvas(p5.windowWidth, 400).parent(canvasParentRef);
+};
 
-  const draw = (p5) => {};
+const draw = (p5) => {
+  p5.background(150, 150, 150);
+};
 
-  // Will only render on client-side
-  
+// Will only render on client-side
+
+const Boilerplatewithsound = (props) => {
   return (
     <div className="">
       <Sketch preload={preload} setup={setup} draw={draw} />
