@@ -97,7 +97,7 @@ let setRatio;
 
   // Will only render on client-side
   return (
-    <div className="">
+    <div className="touch-none">
       <Sketch preload={preload} setup={setup} draw={draw} />
     </div>
   );
