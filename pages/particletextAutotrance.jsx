@@ -70,8 +70,12 @@ let setRatio;
     p5.line(0,y,p5.width, y);
   }
 
-    // p5.background(0, 0, 0);
 
+  let xM = p5.mouseX
+  let yM = p5.mouseY
+  p5.fill(100, 50)
+  p5.noStroke()
+  p5.ellipse(xM,yM,30)
     p5.stroke(0, 255, 0);
     for (let i = 0; i < vehicles.length; i++) {
       let v = vehicles[i];
