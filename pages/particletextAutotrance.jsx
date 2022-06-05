@@ -44,7 +44,7 @@ let setRatio;
 
 
 
-    let points3 = font.textToPoints("TRANCE", 150, p5.windowHeight/2, 300 * setRatio,
+    let points3 = font.textToPoints("TRANCE", 130, p5.windowHeight/2, 300 * setRatio,
     {sampleFactor: 0.35 });
 
     for (let i = 0; i < points3.length; i++) {
