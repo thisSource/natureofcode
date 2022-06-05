@@ -2,9 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+  }
+
 @layer base{
     @font-face {
         font-family: "Rope";
         src: url("/fonts/Pelavin Fonts - SaltyDog-Solid.otf") format("otf");
     }
 }
+
+@media screen and (max-width: 480px) {
+    body {
+      /* max-height: 100vh; */
+      overflow-y: hidden;
+    }
+  }
